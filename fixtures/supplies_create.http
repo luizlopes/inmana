@@ -1,0 +1,27 @@
+###
+# @name restaurant
+POST http://localhost:4000/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "Pizzaria da Lulu 2",
+  "email": "pizzaria2@lulu.com.br"
+}
+
+###
+POST http://localhost:4000/api/supplies
+Content-Type: application/json
+
+{
+  "description": "Arroz",
+  "expiration_date": "2021-04-23",
+  "responsible": "Luis",
+  "restaurant_id": "67d09d22-f03b-40c8-921d-57f641b9f459"
+}
+
+###
+GET http://localhost:4000/api/supplies/c266e0ff-1b1e-4da3-8f0f-fcc9df1808ac
+
+
+### id não existente
+GET http://localhost:4000/api/supplies/c266e0ff-1b1e-4da3-8f0f-fcc9df1819ac

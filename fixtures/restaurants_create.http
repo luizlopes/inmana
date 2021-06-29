@@ -1,0 +1,34 @@
+POST http://localhost:4000/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "Lula Livre!",
+  "email": "lulalivre2@brasil.com.br"
+}
+
+###
+POST http://localhost:4000/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "Pão de queijo",
+  "email": "lulalivre@brasil.com.br"
+}
+
+###
+POST http://localhost:4000/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "Pão de queijo",
+  "email": "brasil.com.br"
+}
+
+###
+POST http://localhost:4000/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "P",
+  "email": "pao@brasil.com.br"
+}

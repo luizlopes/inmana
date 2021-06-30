@@ -21,15 +21,14 @@ defmodule InmanaWeb.RestaurantsController do
     end
   end
 
-  defp handle_get_response({:ok, restaurant}, conn) do
-    conn
-    |> put_status(:ok)
-    |> json(restaurant)
-  end
+  defp handle_get_response({:ok, restaurant}, conn), do: render_json(conn, :ok, restaurant)
 
-  defp handle_get_response({:error, %{message: message, status: status}}, conn) do
+  defp handle_get_response({:error, %{message: message, status: status}}, conn),
+    do: render_json(conn, status, %{error: message})
+
+  defp render_json(conn, status, json) do
     conn
     |> put_status(status)
-    |> json(%{error: message})
+    |> json(json)
   end
 end

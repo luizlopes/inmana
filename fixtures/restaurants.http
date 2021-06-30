@@ -1,0 +1,9 @@
+### Getting a restaurant passing valid UUID
+### Expects ok or not found status response
+GET http://localhost:4000/api/restaurants/5eeb9dc8-794b-4758-a8c8-2e1d91714d99
+Content-Type: application/json
+
+### Getting a restaurant passing an invalid UUID
+### Expects bad resquest status response with a clear message 
+GET http://localhost:4000/api/restaurants/5eeb9dc8s
+Content-Type: application/json

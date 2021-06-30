@@ -9,7 +9,7 @@ defmodule InmanaWeb.RestaurantsController do
 
   def show(conn, %{"id" => id}) do
     id
-    |> get_restaurant()
+    |> Inmana.Restaurants.Get.call()
     |> handle_get_response(conn)
   end
 
@@ -18,13 +18,6 @@ defmodule InmanaWeb.RestaurantsController do
       conn
       |> put_status(:created)
       |> render("create.json", restaurant: restaurant)
-    end
-  end
-
-  defp get_restaurant(id) do
-    case Ecto.UUID.cast(id) do
-      :error -> {:error, %{message: "Id is invalid", status: :bad_request}}
-      {:ok, uuid} -> Inmana.Restaurants.Get.call(uuid)
     end
   end
 

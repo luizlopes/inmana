@@ -38,7 +38,7 @@ defmodule RestaurantsControllerTest do
 
       # assertions
       assert %{
-               "message" => "Restaurant 351455d5-6cad-46fc-8477-af6cb0e62504 not found"
+               "message" => "Restaurant not found"
              } = response
     end
 

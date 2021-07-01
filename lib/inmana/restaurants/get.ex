@@ -8,20 +8,21 @@ defmodule Inmana.Restaurants.Get do
   end
 
   defp validate_uuid_format(uuid) do
-    case Ecto.UUID.cast(uuid) do
-      :error -> {:error, :invalid_uuid}
-      {:ok, uuid} -> {:ok, uuid}
-    end
+    Ecto.UUID.cast(uuid)
+    |> handle_uuid_cast
   end
+
+  defp handle_uuid_cast({:ok, _uuid} = uuid_cast), do: uuid_cast
+  defp handle_uuid_cast(:error), do: {:error, :invalid_uuid}
 
   defp get_restaurant({:ok, id}) do
-    case Repo.get(Restaurant, id) do
-      nil -> {:error, %{message: "Restaurant #{id} not found", status: :not_found}}
-      restaurant -> {:ok, restaurant}
-    end
+    Repo.get(Restaurant, id)
+    |> handle_get
   end
 
-  defp get_restaurant({:error, :invalid_uuid}) do
-    {:error, %{message: "Id is invalid", status: :bad_request}}
-  end
+  defp get_restaurant({:error, :invalid_uuid}),
+    do: {:error, %{result: "Id is invalid", status: :bad_request}}
+
+  defp handle_get(%Restaurant{} = restaurant), do: {:ok, restaurant}
+  defp handle_get(nil), do: {:error, %{result: "Restaurant not found", status: :not_found}}
 end

@@ -38,7 +38,7 @@ defmodule RestaurantsControllerTest do
 
       # assertions
       assert %{
-               "error" => "Restaurant 351455d5-6cad-46fc-8477-af6cb0e62504 not found"
+               "message" => "Restaurant 351455d5-6cad-46fc-8477-af6cb0e62504 not found"
              } = response
     end
 
@@ -54,7 +54,7 @@ defmodule RestaurantsControllerTest do
 
       # assertions
       assert %{
-               "error" => "Id is invalid"
+               "message" => "Id is invalid"
              } = response
     end
   end

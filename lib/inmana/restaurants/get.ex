@@ -16,12 +16,12 @@ defmodule Inmana.Restaurants.Get do
 
   defp get_restaurant({:ok, id}) do
     case Repo.get(Restaurant, id) do
-      nil -> {:error, %{message: "Restaurant #{id} not found", status: :not_found}}
+      nil -> {:error, %{result: "Restaurant #{id} not found", status: :not_found}}
       restaurant -> {:ok, restaurant}
     end
   end
 
   defp get_restaurant({:error, :invalid_uuid}) do
-    {:error, %{message: "Id is invalid", status: :bad_request}}
+    {:error, %{result: "Id is invalid", status: :bad_request}}
   end
 end

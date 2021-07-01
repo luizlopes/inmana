@@ -8,9 +8,11 @@ defmodule InmanaWeb.RestaurantsController do
   action_fallback FallbackController
 
   def show(conn, %{"id" => id}) do
-    id
-    |> Inmana.Restaurants.Get.call()
-    |> handle_get_response(conn)
+    with {:ok, %Restaurant{} = restaurant} <- Inmana.Restaurants.Get.call(id) do
+      conn
+      |> put_status(:ok)
+      |> render("show.json", restaurant: restaurant)
+    end
   end
 
   def create(conn, params) do
@@ -19,16 +21,5 @@ defmodule InmanaWeb.RestaurantsController do
       |> put_status(:created)
       |> render("create.json", restaurant: restaurant)
     end
-  end
-
-  defp handle_get_response({:ok, restaurant}, conn), do: render_json(conn, :ok, restaurant)
-
-  defp handle_get_response({:error, %{message: message, status: status}}, conn),
-    do: render_json(conn, status, %{error: message})
-
-  defp render_json(conn, status, json) do
-    conn
-    |> put_status(status)
-    |> json(json)
   end
 end

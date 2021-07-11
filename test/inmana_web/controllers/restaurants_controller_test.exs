@@ -58,4 +58,40 @@ defmodule RestaurantsControllerTest do
              } = response
     end
   end
+
+  describe "create/2" do
+    test "when all params are valid, then creates the user", %{conn: conn} do
+      params = %{name: "Siri cascudo", email: "siri@cascudo.com"}
+
+      response =
+        conn
+        |> post(Routes.restaurants_path(conn, :create, params))
+        |> json_response(201)
+
+      assert %{
+               "message" => "Restaurant created!",
+               "restaurant" => %{
+                 "id" => _id,
+                 "email" => "siri@cascudo.com",
+                 "name" => "Siri cascudo"
+               }
+             } = response
+    end
+
+    test "when there are invalid params, then return error", %{conn: conn} do
+      params = %{name: "s", email: "siri"}
+
+      response =
+        conn
+        |> post(Routes.restaurants_path(conn, :create, params))
+        |> json_response(400)
+
+      assert %{
+               "message" => %{
+                 "email" => ["has invalid format"],
+                 "name" => ["should be at least 2 character(s)"]
+               }
+             } = response
+    end
+  end
 end

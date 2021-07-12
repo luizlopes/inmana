@@ -8,7 +8,7 @@ defmodule InmanaWeb.RestaurantsController do
   action_fallback FallbackController
 
   def show(conn, %{"id" => id}) do
-    with {:ok, %Restaurant{} = restaurant} <- Inmana.Restaurants.Get.call(id) do
+    with {:ok, %Restaurant{} = restaurant} <- Inmana.get_restaurant(id) do
       conn
       |> put_status(:ok)
       |> render("show.json", restaurant: restaurant)
